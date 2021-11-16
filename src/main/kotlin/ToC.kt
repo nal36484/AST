@@ -1,11 +1,11 @@
-class ToPascal(val tokenTypeList: Array<Tokens>,var pascal: String = "var\n") {
-    fun toPascal(): String {
+class ToC(val tokenTypeList: Array<Tokens>,var pascal: String = "") {
+    fun toC(): String {
         for (token in tokenTypeList) {
             when (token.type) {
-                int -> pascal += "Integer "
-                float -> pascal += "Single "
+                int -> pascal += "int "
+                float -> pascal += "float "
                 esli -> pascal += "if "
-                togda -> pascal += "then\n"
+                togda -> pascal += ""
                 inache -> pascal += "else\n"
                 poka -> pascal += "while "
                 number -> pascal += token.text + " "
@@ -20,8 +20,8 @@ class ToPascal(val tokenTypeList: Array<Tokens>,var pascal: String = "var\n") {
                 rpar -> pascal += ") "
                 largest -> pascal += "> "
                 smallest -> pascal += "< "
-                //lGreatPar -> pascal += "\nbegin\n"
-                //rGreatPar -> pascal += "end;\n"
+                //lGreatPar -> pascal += "{\n"
+                //rGreatPar -> pascal += "} "
             }
         }
         return pascal

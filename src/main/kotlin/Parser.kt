@@ -1,6 +1,6 @@
 import AST.*
 
-class Parser(var tokenList: Array<Tokens>, var pos: Int = 0, var scope: Any = 0) {
+class Parser(var tokenList: Array<Tokens>, var pos: Int = 0, var text: String = "") {
 
     fun match(vararg tokenTypeList: TokenType): Tokens? {
        if (this.pos < this.tokenList.size) {
@@ -32,9 +32,9 @@ class Parser(var tokenList: Array<Tokens>, var pos: Int = 0, var scope: Any = 0)
     }
 
     fun parsePrint(): SuperNode {
-        val token = this.match(int,float,esli,togda,gde,poka)
+        val token = this.match(int,float,esli,togda,inache,poka)
         if (token != null) {
-            return UnarOperations(token,this.parseFormula())
+            return TypeStatementsNode(token,this.parseFormula())
         }
         throw Exception ("Ожидается унарный оператор на позиции ${this.pos}")
     }
@@ -84,35 +84,35 @@ class Parser(var tokenList: Array<Tokens>, var pos: Int = 0, var scope: Any = 0)
         }
         return root
     }
-    fun run(node: SuperNode): Any {
+    /*fun run(node: SuperNode): Any {
         if (node is Numbers) {
             return node.number.text
         }
         if (node is UnarOperations) {
             when (node.operator.type.name) {
-                int.name -> return node.operator.text
-                float.name -> return node.operator.text
-                esli.name -> return  node.operator.text
-                togda.name -> return node.operator.text
-                togda.name -> return node.operator.text
-                gde.name -> return  node.operator.text
+                int.name -> text = node.operator.text
+                float.name -> text = node.operator.text
+                esli.name -> text =  node.operator.text
+                togda.name -> text = node.operator.text
+                togda.name -> text = node.operator.text
+                inache.name -> text =  node.operator.text
             }
         }
         if (node is BinarOperations) {
             when (node.operator.type.name) {
-                plus.name -> return node.operator.text
-                minus.name -> return node.operator.text
-                multiply.name -> return node.operator.text
-                delit.name -> return node.operator.text
-                assign.name -> return node.operator.text
+                plus.name -> text = node.operator.text
+                minus.name -> text = node.operator.text
+                multiply.name -> text = node.operator.text
+                delit.name -> text =  node.operator.text
+                assign.name -> text =  node.operator.text
             }
         }
         if (node is Variables) {
             return node.variable.text
-        }
-        if (node is StatementsNode) {
+        }*/
+        /*if (node is StatementsNode) {
             node.codeStrings.forEach { codeString -> this.run(codeString) }
         }
         throw Exception("Ошибка!")
-    }
+    }*/
 }

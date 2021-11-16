@@ -1,12 +1,18 @@
 fun main() {
-    val code = "int a; when = b;  + else / if ;- int  () float; * while aa; 10.21 13 BB; "
+    val code = "Целое apple Равно 2'Если (apple Меньше 3) Тогда  apple Равно 8' Иначе apple Равно 0'" +
+            "Дробное knife Равно 5.5'Дробное appleFloat Равно (((apple Умножить 2) Делить (apple Минус knife)))" +
+            "Плюс knife' Пока (appleFloat Больше 0) appleFloat Равно appleFloat Минус 1'"
     val lex = Lexer(code)
     lex.lexAnalisis()
     for (i in lex.tokensList) {
        println(i.text)
     }
+    println("*****************************************************************")
     val toPascal = ToPascal(lex.tokensList).toPascal()
     println(toPascal)
+    println("*****************************************************************")
+    val toC = ToC(lex.tokensList).toC()
+    println(toC)
     //val parser = Parser(lex.tokensList)
     //val rootNode = parser.parseCode()
     //parser.run(rootNode)
