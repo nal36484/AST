@@ -20,8 +20,8 @@ class ToPascal(val tokenTypeList: Array<Tokens>,var pascal: String = "var\n") {
                 rpar -> pascal += ") "
                 largest -> pascal += "> "
                 smallest -> pascal += "< "
-                //lGreatPar -> pascal += "\nbegin\n"
-                //rGreatPar -> pascal += "end;\n"
+                lGreatPar -> pascal += "\nbegin\n"
+                rGreatPar -> pascal += "end;\n"
             }
         }
         return pascal

@@ -20,8 +20,8 @@ class ToC(val tokenTypeList: Array<Tokens>,var pascal: String = "") {
                 rpar -> pascal += ") "
                 largest -> pascal += "> "
                 smallest -> pascal += "< "
-                //lGreatPar -> pascal += "{\n"
-                //rGreatPar -> pascal += "} "
+                lGreatPar -> pascal += "{\n"
+                rGreatPar -> pascal += "} "
             }
         }
         return pascal

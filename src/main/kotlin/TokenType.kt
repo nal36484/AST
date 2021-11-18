@@ -19,12 +19,12 @@ val lpar = TokenType("lpar","\\(")
 val rpar = TokenType("rpar","\\)")
 val largest = TokenType(">","Больше")
 val smallest = TokenType("<","Меньше")
-//val lGreatPar = TokenType("{","\\{")
-//val rGreatPar = TokenType("}","\\}")
+val lGreatPar = TokenType("{","\\{")
+val rGreatPar = TokenType("}","\\}")
 
 
 var tokenTypeList: Array<TokenType> = arrayOf(int,float,esli,togda,inache,poka,number,largest,smallest,semicolon,
-    space, assign, variable,plus,minus,multiply,delit,lpar,rpar,)
+    space, assign, variable,plus,minus,multiply,delit,lpar,rpar,lGreatPar,rGreatPar)
 
 
 /*enum class TokenTypes {
