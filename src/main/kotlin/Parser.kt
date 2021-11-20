@@ -64,9 +64,9 @@ class Parser(var tokenList: Array<Tokens>, var pos: Int = 0, var text: String = 
     }
 
     fun parseElse():SuperNode {
-        val elseToken = this.match(togda)
-        val elsePart = parseGreatPar()
+        val elseToken = this.match(inache)
         if (elseToken != null) {
+            val elsePart = parseGreatPar()
             return ElseStatementNode(elseToken,elsePart)
         }
         throw Exception("После блока Если ожидается оператор Иначе на позиции ${this.pos}")
@@ -76,7 +76,8 @@ class Parser(var tokenList: Array<Tokens>, var pos: Int = 0, var text: String = 
         this.pos -=1
         val ifToken = match(esli)
         if (ifToken != null) {
-            val condition = parseFormula()
+            val condition = parseParentheses()
+            require(togda)
             val thenPart = parseGreatPar()
             val elsePart = parseElse()
             return IfStatementNode(ifToken,condition,thenPart,elsePart)
@@ -87,6 +88,7 @@ class Parser(var tokenList: Array<Tokens>, var pos: Int = 0, var text: String = 
     fun parseGreatPar(): SuperNode {
         if (match(lGreatPar) != null) {
             val formula = parseSuperNode()
+            require(semicolon)
             require(rGreatPar)
             return formula
         }
@@ -94,7 +96,7 @@ class Parser(var tokenList: Array<Tokens>, var pos: Int = 0, var text: String = 
     }
 
     fun parseWhile(): SuperNode {
-        this.pos -+1
+        this.pos -=1
         val whileToken = this.match(poka)
         val condition = parseParentheses()
         val thenPart = parseGreatPar()
@@ -115,7 +117,7 @@ class Parser(var tokenList: Array<Tokens>, var pos: Int = 0, var text: String = 
             val whileNode = this.parseWhile()
             return whileNode
         } else if (match(variable) != null) {
-            pos -=1
+            this.pos -=1
             return parseFormula()
         }
         throw Exception ("После переменной ожидается оператор присваивания на позиции ${this.pos}")
@@ -125,44 +127,47 @@ class Parser(var tokenList: Array<Tokens>, var pos: Int = 0, var text: String = 
         val root = StatementsNode()
         while (this.pos < tokenList.size){
             val codeStringNode = this.parseSuperNode()
-            this.require(semicolon,rGreatPar)
+            this.match(rGreatPar,semicolon,lGreatPar)
             root.addNode(codeStringNode)
         }
         return root
     }
-    /*fun run(node: SuperNode): Any {
+    fun run(node: SuperNode): Any {
         if (node is NumbersNode) {
-            return node.number.text
+            text += node.number.text
+        }
+        if (node is VariablesNode) {
+            text += node.variables.text
         }
         if (node is DeclarationsNode) {
             when (node.declaration.type.name) {
-                int.name -> text = node.declaration.text
-                float.name -> text = node.declaration.text
+                int.name -> text += "Integer" + this.run(node.variable)
+                float.name -> text += "Single" + this.run(node.variable)
             }
         }
         if (node is BinarOperations) {
             when (node.operator.type.name) {
-                plus.name -> text = node.operator.text
-                minus.name -> text = node.operator.text
-                multiply.name -> text = node.operator.text
-                delit.name -> text = node.operator.text
-                assign.name -> text = node.operator.text
-                smallest.name -> text = node.operator.text
-                largest.name -> text = node.operator.text
+                plus.name -> text += this.run(node.leftNode).toString() + "+ " + this.run(node.rightNode)
+                minus.name -> text += this.run(node.leftNode).toString() + "- " + this.run(node.rightNode)
+                multiply.name -> text += this.run(node.leftNode).toString() + "* " + this.run(node.rightNode)
+                delit.name -> text += this.run(node.leftNode).toString() + "/ " + this.run(node.rightNode)
+                assign.name -> text += this.run(node.leftNode).toString() + "= " + this.run(node.rightNode)
+                smallest.name -> text += this.run(node.leftNode).toString() + "< " + this.run(node.rightNode)
+                largest.name -> text += this.run(node.leftNode).toString() + "> " + this.run(node.rightNode)
             }
         }
-        if (node is VariablesNode) {
-            return node.variable.text
+        if (node is IfStatementNode) {
+            text += "if " + this.run(node.condition) + this.run(node.thenPart) + this.run(node.elsePart)
         }
         if (node is ElseStatementNode) {
-            return node.elseToken.text
+            text += "else " + this.run(node.formula)
         }
-        if (node is ElseStatementNode) {
-            return node.elseToken.text
+        if (node is WhileStatementNode) {
+            text += "while " + this.run(node.condition) + this.run(node.body)
         }
         if (node is StatementsNode) {
             node.codeStrings.forEach { codeString -> this.run(codeString) }
         }
         throw Exception("Ошибка")
-    }*/
+    }
 }

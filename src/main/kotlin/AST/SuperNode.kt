@@ -1,4 +1,4 @@
 package AST
 
-open class SuperNode{
+abstract class SuperNode{
 }

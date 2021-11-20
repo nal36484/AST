@@ -2,5 +2,5 @@ package AST
 
 import Tokens
 
-class VariablesNode(val variable: Tokens) : SuperNode() {
+class VariablesNode(val variables: Tokens) : SuperNode() {
 }

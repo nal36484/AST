@@ -13,9 +13,11 @@ fun main() {
     println("*****************************************************************")
     val toC = ToC(lex.tokensList).toC()
     println(toC)
+    println("*****************************************************************")
     val parser = Parser(lex.tokensList)
     val rootNode = parser.parseCode()
     //parser.run(rootNode)
+    //println(parser.text)
     //var regex = Regex("int")
     //var result = regex.findAll(code)
     //for (i in result) {
