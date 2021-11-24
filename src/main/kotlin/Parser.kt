@@ -141,7 +141,7 @@ class Parser(var tokenList: Array<Tokens>, var pos: Int = 0, var text: String = 
         }
         if (node is DeclarationsNode) {
             when (node.declaration.type.name) {
-                int.name -> text += "Integer" + this.run(node.variable)
+                int.name -> this.run(node.variable)
                 float.name -> text += "Single" + this.run(node.variable)
             }
         }
@@ -151,7 +151,7 @@ class Parser(var tokenList: Array<Tokens>, var pos: Int = 0, var text: String = 
                 minus.name -> text += this.run(node.leftNode).toString() + "- " + this.run(node.rightNode)
                 multiply.name -> text += this.run(node.leftNode).toString() + "* " + this.run(node.rightNode)
                 delit.name -> text += this.run(node.leftNode).toString() + "/ " + this.run(node.rightNode)
-                assign.name -> text += this.run(node.leftNode).toString() + "= " + this.run(node.rightNode)
+                assign.name -> this.run(node.rightNode)
                 smallest.name -> text += this.run(node.leftNode).toString() + "< " + this.run(node.rightNode)
                 largest.name -> text += this.run(node.leftNode).toString() + "> " + this.run(node.rightNode)
             }
