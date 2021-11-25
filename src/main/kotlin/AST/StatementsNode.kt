@@ -16,5 +16,4 @@ class StatementsNode(var codeStrings: Array<SuperNode> = arrayOf()): SuperNode()
             code += node.toC()
         return code
     }
-
 }

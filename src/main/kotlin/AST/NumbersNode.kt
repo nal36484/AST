@@ -9,5 +9,4 @@ class NumbersNode(var number: Tokens):SuperNode() {
     override fun toC(): String {
         return number.text
     }
-
 }

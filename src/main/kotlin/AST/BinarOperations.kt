@@ -26,5 +26,4 @@ class BinarOperations(val operator: Tokens,val leftNode: SuperNode,val rightNode
             else -> leftNode.toC() + " = " + rightNode.toC()
         }
     }
-
 }

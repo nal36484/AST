@@ -9,5 +9,4 @@ class WhileStatementNode(val whileToken: Tokens,val condition: SuperNode,val bod
     override fun toC(): String {
         return "while (" + condition.toC() + ") {\n  " + body.toC() + ";\n}\n"
     }
-
 }

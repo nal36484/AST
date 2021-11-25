@@ -16,7 +16,6 @@ class DeclarationsNode(val declaration: Tokens, val variable: VariablesNode,val 
         else (declaration.type.name == "float")
             return variable.toPascal() + ": Single;\n"
     }
-
     override fun toC(): String {
         if (initialisation!=null) {
             if (declaration.type.name == "int")
